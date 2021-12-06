@@ -1,0 +1,8 @@
+    {%include 'header.html'%}
+    {% if user.is_authenticated %}
+    {%include 'slidebar.html'%}
+    {% endif %}
+    {% block body %}
+    {% endblock %}
+    {%include 'footer.html'%}
+    

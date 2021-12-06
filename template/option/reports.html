@@ -1,0 +1,177 @@
+{%extends 'base.html'%}
+{%block body%}
+<div class="content">
+  <div class="container">
+    <form method="post" action="reports" style="color: white;" class="hidden-print">
+      {%csrf_token%}
+      <div class="form-group">
+        <!-- Date input -->
+        Starting Date:
+        <input class="form-control" name="starting_date" placeholder="MM/DD/YYY" type="date" required />
+      </div>
+
+      <div class="form-group">
+        <!-- Date input -->
+        Ending Date:
+        <input class="form-control" name="ending_date" placeholder="MM/DD/YYY" type="date" required />
+      </div>
+
+      <div class="form-group">
+        <!-- Submit button -->
+        <button class="btn btn-primary " name="submit" type="submit">Submit</button>
+      </div>
+    </form>
+    {%if all_sells%}
+    <div class="alert alert-success" role="alert">
+      All sells from Starting to Ending Date
+    </div>
+    <div class="table-responsive">
+      <table class="table table-dark mt-1">
+        <thead>
+          <tr>
+            <th scope="col">Date</th>
+            <th scope="col">Order Id</th>
+            <th scope="col">Product Id</th>
+            <th scope="col">Product Title</th>
+            <th scope="col">Buyer</th>
+            <th scope="col">Quantity</th>
+            <th scope="col">Total Price</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for n in all_sells%}
+          <tr>
+            <td>{{n.date}}</td>
+            <td>{{n.id}}</td>
+            <td>{{n.product_id}}</td>
+            <td>{{n.product_title}}</td>
+            <td>{{n.buyer}}</td>
+            <td>{{n.quantity}}</td>
+            <td>{{n.total_price}}</td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+    {%endif%}
+
+    <div class="row">
+      <div class="col-md-6 col-sm-4">
+        {%if sells_by_day%}
+        <div class="alert alert-success" role="alert">
+          Total Revenue from Starting To Ending Date
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark mt-1">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Total Revenue</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for n in sells_by_day%}
+              <tr>
+                <td>{{n.date}}</td>
+                <td>{{n.total_price}}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+
+        {%endif%}
+      </div>
+      <div class="col-md-6 col-sm-4">
+        {%if product_by_day%}
+        <div class="alert alert-success" role="alert">
+          Total Sold Quantity from Starting To Ending Date
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark mt-1">
+            <thead>
+              <tr>
+                <th scope="col">Date</th>
+                <th scope="col">Total Quantity Sold</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for n in product_by_day%}
+              <tr>
+                <td>{{n.date}}</td>
+                <td>{{n.total_quantity}}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+
+        {%endif%}
+      </div>
+    </div>
+
+
+
+    <div class="row">
+      <div class="col-md-6 col-sm-4">
+        {%if product_quantity_by_day%}
+        <div class="alert alert-success" role="alert">
+          Total Product Sold
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark mt-1">
+            <thead>
+              <tr>
+                <th scope="col">Product</th>
+                <th scope="col">Total Quantity</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for n in product_quantity_by_day%}
+              <tr>
+                <td>{{n.product_title}}</td>
+                <td>{{n.total_quantity}}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+
+        {%endif%}
+      </div>
+      <div class="col-md-6 col-sm-4">
+        {%if category_quantity_by_day%}
+        <div class="alert alert-success" role="alert">
+          Sold Products Category Quantity
+        </div>
+        <div class="table-responsive">
+          <table class="table table-dark mt-1">
+            <thead>
+              <tr>
+                <th scope="col">Category</th>
+                <th scope="col">Total Quantity Sold</th>
+              </tr>
+            </thead>
+            <tbody>
+              {%for n in category_quantity_by_day%}
+              <tr>
+                <td>{{n.category}}</td>
+                <td>{{n.total_quantity}}</td>
+              </tr>
+              {%endfor%}
+            </tbody>
+          </table>
+        </div>
+
+        {%endif%}
+
+      </div>
+    </div>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+  </div>
+</div>
+{%endblock%}

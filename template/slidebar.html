@@ -1,0 +1,88 @@
+<style>
+ 
+    .sidebar {
+      margin: 0;
+      padding: 0;
+      width: 300px;
+      background-color: #dee3ec	;
+      position: fixed;
+      height: 100%;
+      overflow: auto;
+    }
+    
+    .sidebar a {
+      display: block;
+      color: black;
+      padding: 16px;
+      text-decoration: none;
+    }
+     
+    .sidebar a.active {
+      background-color: #397ff7;
+      color: white;
+    }
+    div.content {
+      margin-left: 300px;
+      margin-top: 70px;
+      padding: 1px 16px;
+      height: 100%;
+    }
+    .sidebar a:hover:not(.active) {
+      background-color: #639cfd;
+      color: white;
+    }
+
+    .card {
+      color: white;
+      float: left;
+      width: calc(20% - 20px);
+      padding: 10px;
+      border-radius: 10px;
+      margin: 10px;
+      height: 100px;
+      align-items: center;
+   }
+   .card p {
+      font-size: 1vw;
+   }
+   .cardContainer:after {
+      content: "";
+      display: table;
+      clear: both;
+   }
+
+  
+
+    @media screen and (max-width: 700px) {
+      .sidebar {
+        width: 100%;
+        height: auto;
+        position: relative;
+      }
+      .sidebar a {float: left;}
+      div.content {margin-left: 0;}
+      .card p{
+        font-size: 10px;
+      }
+    }
+    
+    @media screen and (max-width: 600px) {
+      .sidebar a {
+        text-align: center;
+        float: none;
+      }
+      .card {
+         width: 100%;
+         margin-left: 0px;
+         margin-bottom: 2px;
+      }
+    }
+    </style>
+<div class="sidebar ">
+    <a href="{% url 'inventory'%}" class={% if request.path  == '/inventory' %}active{% endif %}>Dashbord</a>
+    <a href="{% url 'sells'%}" class= {% if request.path  == '/sells'%}active{% endif %}>Sell</a>
+    <a href="{% url 'category'%} " class={% if request.path  == '/category' %}active{% endif %}>Category</a>
+    <a href="{% url 'products'%}" class={% if request.path  == '/products' %}active{% endif %}>Products</a>
+    <a href="{% url 'reports'%}" class={% if request.path  == '/reports' %}active{% endif %}>Report</a>
+  </div>
+  

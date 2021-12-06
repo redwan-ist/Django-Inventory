@@ -1,0 +1,43 @@
+{%extends 'base.html'%}
+{%block body%}
+<div class="content">
+  <div class="container mt-1">
+    <script>
+      function check() {
+        let x = document.forms["sellform"]["buyer_name"].value;
+        if (x == "") {
+          document.getElementById('checkbuyer').innerHTML = '*required'
+          return false;
+        }
+        let y = document.forms["sellform"]["quantity"].value;
+        if (y == "") {
+          document.getElementById('checkquantity').innerHTML = '*required '
+          return false;
+        }
+        else if (parseInt('{{product.stock}}') == 0) {
+          document.getElementById('checkquantity').innerHTML = '*Empty Stock '
+          return false;
+        }
+        else if (parseInt(y) > parseInt('{{product.stock}}')) {
+          document.getElementById('checkquantity').innerHTML = '*Quantity Must Be <= {{product.stock}} '
+          return false;
+        }
+      }
+    </script>
+    <form action="" method="POST" style="color: whitesmoke;" onsubmit="return check()" name="sellform">
+      {%csrf_token%}
+      Buyer Name:<div id='checkbuyer' style="color: red;"></div><input type="text" class="form-control"
+        name="buyer_name" placeholder="Buyer Name"><br>
+      Quantity:({{product.stock}} available) <div id='checkquantity' style="color: red;"></div> <input type="text"
+        class="form-control" name="quantity" value='0'><br>
+      <button type="submit" class="btn-block btn btn-primary"
+        onclick="return confirm('Are you sure you want Sell this?');">Sell</button>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{%endblock%}

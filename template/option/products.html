@@ -1,0 +1,84 @@
+{%extends 'base.html'%}
+{%block body%}
+<div class="content">
+  <div class="container mt-1 ">
+    <a href="{% url 'add_products'%}"><button class="btn-block btn btn-primary p-3">Add Product</button></a>
+
+    <form action="products" method="POST" class="mt-1">
+      {%csrf_token%}
+      <div class="row">
+        <div class="col-8">
+          <input type="text" class="form-control" placeholder="Search By Product Name" name="search">
+        </div>
+        <div class="col-4">
+          <button type="submit" class="btn-block btn btn-primary">Search</button>
+        </div>
+      </div>
+    </form>
+    <div class="table-responsive mt-1">
+      <table class="table table-dark mt-1">
+        <thead>
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col" style="width: 20%;">Name</th>
+            <th scope="col">Price</th>
+            <th scope="col">Stock</th>
+            <th scope="col">Total Sell</th>
+            <th scope="col">Category</th>
+            <th scope="col" style="width: 13%;">Date</th>
+            <th scope="col" style="width:10%">Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          {%for n in product%}
+          <tr>
+            <td>{{n.id}}</td>
+            <td>{{n.title}}</td>
+            <td>{{n.price}}</td>
+            <td>{{n.stock}}</td>
+            <td>{{n.total_sell}}</td>
+            <td>{{n.category}}</td>
+            <td>{{n.date}}</td>
+            <td>
+
+              <a href="/sell_product/{{ n.id }}"><button class="btn-block btn btn-primary">Sell</button></a>
+              <a href="/edit_product/{{ n.id }}"><button class="btn-block btn btn-success">Edit</button></a>
+
+            </td>
+          </tr>
+          {%endfor%}
+        </tbody>
+      </table>
+    </div>
+    <!--Pagination-->
+    <div class="container p-4" style="background-color: #dee3ec;">
+      <div class="pagination justify-content-center">
+        <span class="step-links">
+          {% if product.has_previous %}
+          <a href="?page=1">&laquo; first</a>
+          <a href="?page={{ product.previous_page_number }}">previous</a>
+          {% endif %}
+
+          <span class="current">
+            Page {{ product.number }} of {{ product.paginator.num_pages }}
+          </span>
+
+          {% if product.has_next %}
+          <a href="?page={{ product.next_page_number }}">next</a>
+          <a href="?page={{ product.paginator.num_pages }}">last &raquo;</a>
+          {% endif %}
+        </span>
+      </div>
+    </div>
+    <!--end of Pagination-->
+    <br><br><br>
+  </div>
+</div>
+</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{%endblock%}

@@ -1,0 +1,29 @@
+{%extends 'base.html'%}
+{% block body %}
+
+<div class="container mt-5">
+    <br>
+    <div class="col align-items-center ">
+      <h1 style="text-align: center; color:white">Login</h1>
+      <br>
+        <div class="col-10 mx-auto shadow p-3 mb-2" style="background-color:whitesmoke; border-radius:15px 15px 15px 15px">
+          
+          <form action="" method="POST">
+            {%csrf_token%}
+            <div class="form-group mb-2">
+              <input type="text" class="form-control" name="uname" placeholder="USERNAME">
+            </div>
+            <br>
+            <div class="form-group">
+              <input type="password" class="form-control" name="password" placeholder="PASSWORD">
+            </div>
+   
+            <button type="submit"class="btn btn-outline-success">LOGIN</button>
+          </form>
+          {% for mes in messages%}
+            <p style="color: red;">{{mes}}</p>
+            {%endfor%}
+        </div>
+    </div>
+</div>
+{%endblock%}

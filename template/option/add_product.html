@@ -1,0 +1,28 @@
+{%extends 'base.html'%}
+{%block body%}
+
+<div class="content">
+  <div class="container mt-1">
+
+    <form action="add_products" method="POST" style="color: whitesmoke;">
+      {%csrf_token%}
+      Title:<input type="text" class="form-control" name="title" placeholder="Title" required><br>
+      Price:<input type="text" class="form-control" name="price" placeholder="Price" required><br>
+      Stock:<input type="text" class="form-control" name="stock" placeholder="stock" required><br>
+      Category:<select class="form-control" name="category" required>
+        <option value="">Select Category</option>
+        {%for i in cat%}
+        <option>{{i.name}}</option>
+        {%endfor%}
+      </select><br>
+      <button type="submit" class="btn-block btn btn-primary"
+        onclick="return confirm('Are you sure you want add this?');">Add Product</button>
+    </form>
+  </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+{%endblock%}
